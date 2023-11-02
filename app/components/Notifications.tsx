@@ -28,6 +28,12 @@ const Notifications = () => {
   }, []);
 
   useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/vervet-sw.js").then((registration) => {
+        setServiceWorker(registration);
+      });
+    }
+    
     const main = async () => {
       if (window.Notification.permission === "granted") {
         return;
