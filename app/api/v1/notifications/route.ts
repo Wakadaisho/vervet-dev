@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     where: (template, { eq }) => eq(template.id, body.templateId),
   });
 
-  const res = await db
+  const notificationChain = await db
     .select({
       id: subscription.id,
       userId: subscription.userId,
@@ -82,5 +82,10 @@ export async function POST(req: NextRequest) {
       return promiseChain;
     });
 
-  return NextResponse.json(res, { status: 201 });
+   const res = await db
+    .insert(notification)
+    .values(body)
+    .returning({ id: notification.id });
+
+  return NextResponse.json(res[0], { status: 201 });
 }
