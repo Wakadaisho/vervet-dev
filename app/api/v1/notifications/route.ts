@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     where: (template, { eq }) => eq(template.id, body.templateId),
   });
 
-  const notificationChain = await db
+  await db
     .select({
       id: subscription.id,
       userId: subscription.userId,
