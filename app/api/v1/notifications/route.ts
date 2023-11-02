@@ -44,10 +44,8 @@ export async function POST(req: NextRequest) {
           .delete(subscription)
           .where(eq(subscription.id, subId))
           .returning({ id: subscription.id });
-        return;
-      } else {
-        throw err;
-      }
+      } 
+      return;
     });
   };
 
